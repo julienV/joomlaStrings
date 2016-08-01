@@ -54,7 +54,7 @@ class ExtractJtext:
         return locations
 
     def __parsePhp(self):
-        p = re.compile(r'JText::(?:_|sprintf|script)\(([\'"])(?P<lang>.+)\1')
+        p = re.compile(r'JText::(?:_|sprintf|script)\(([\'"])(?P<lang>[a-zA-Z0-9_]+)')
         matches = p.findall(self.__getText(self.__current))
 
         if matches:
