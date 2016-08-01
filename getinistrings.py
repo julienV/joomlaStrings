@@ -2,12 +2,13 @@
 
 import re
 import os
+import sys
 import argparse
 
 class GetIniStrings:
     """Extract all language strings from ini files"""
 
-    def __init__(self, basepath):
+    def __init__(self, basepath, ignorestrings=None):
         self.__basepath = basepath
         self.__current = ''
         self.__found = {}
@@ -58,12 +59,13 @@ class GetIniStrings:
         self.__found[self.__current].append(string.upper())
 
     def __printFileHeader(self, filepath):
-        print()
+        print('')
         print('#', os.path.relpath(filepath, self.__basepath))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Parses all ini files, and find Joomla language strings.')
     parser.add_argument('-p', '--path', required=False, help='the base path to parse', default=os.getcwd())
+    parser.add_argument('-i', '--ignorestrings', required=False, help='default strings ignore file')
     args = parser.parse_args()
     x = GetIniStrings(args.path)
     res = x.parse()
